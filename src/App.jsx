@@ -41,6 +41,7 @@ export const App = () => {
   const [sortField, setSortField] = useState('');
   const [reverseField, setReverseField] = useState(true);
   const [visibleBtn, setVisiblebtn] = useState(false);
+  const [visiblebtnRev, setVisiblebtnRev] = useState(true);
 
   const visibleGoods = getPreparedGoods(goodsFromServer, {
     sortField,
@@ -59,13 +60,14 @@ export const App = () => {
 
   const btnReverse = () => {
     setReverseField(reverser => !reverser);
-    setVisiblebtn(true);
+    setVisiblebtnRev(f => !f);
   };
 
   const btnReset = () => {
-    setVisiblebtn(true);
+    setVisiblebtn(false);
+    setVisiblebtnRev(true);
     setSortField('');
-    setReverseField(false);
+    setReverseField(true);
   };
 
   return (
@@ -101,7 +103,7 @@ export const App = () => {
           Reverse
         </button>
 
-        {visibleBtn && !reverseField && (
+        {(sortField || visibleBtn || !visiblebtnRev) && (
           <button
             onClick={btnReset}
             type="button"
